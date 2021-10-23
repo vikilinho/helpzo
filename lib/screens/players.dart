@@ -201,8 +201,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
               opacity: enableSubmit ? 1 : 0.5,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: RaisedButton(
-                  color: Colors.black,
+                child: ElevatedButton(
                   onPressed: () {},
                   child: Text(
                     'Submit',
