@@ -8,6 +8,11 @@ class PlayersScreen extends StatefulWidget {
 }
 
 class _PlayersScreenState extends State<PlayersScreen> {
+  bool enabeInput = false;
+  bool enableCPW = false;
+  bool enablePW = false;
+  bool enableSubmit = false;
+  String? name;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,6 +127,91 @@ class _PlayersScreenState extends State<PlayersScreen> {
                   ),
                 ),
               ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                enableSuggestions: true,
+                readOnly: false,
+                autocorrect: true,
+                onSubmitted: (value) {
+                  setState(() {
+                    enabeInput = true;
+                    name = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Name',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                onSubmitted: (value) {
+                  setState(() {
+                    enablePW = true;
+                  });
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Rank',
+                  hintText: name,
+                  enabled: enabeInput,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                onSubmitted: (value) {
+                  setState(() {
+                    enableCPW = true;
+                  });
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                  hintText: name,
+                  enabled: enablePW,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                onSubmitted: (value) {
+                  setState(() {
+                    enableSubmit = true;
+                  });
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Confirm Password',
+                  hintText: name,
+                  enabled: enableCPW,
+                ),
+              ),
+            ),
+            Opacity(
+              opacity: enableSubmit ? 1 : 0.5,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  color: Colors.black,
+                  onPressed: () {},
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
