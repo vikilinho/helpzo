@@ -12,7 +12,40 @@ class _PlayersScreenState extends State<PlayersScreen> {
   bool enableCPW = false;
   bool enablePW = false;
   bool enableSubmit = false;
+  TextEditingController _controller = TextEditingController();
   String? name;
+  bool _isEditingText = false;
+  String? initialText = "Victor";
+
+  Widget _editTitleTextField() {
+    if (_isEditingText)
+      return Center(
+        child: TextField(
+          onSubmitted: (newValue) {
+            setState(() {
+              initialText = newValue;
+              _isEditingText = false;
+            });
+          },
+          autofocus: true,
+          controller: _controller,
+        ),
+      );
+    return InkWell(
+        onTap: () {
+          setState(() {
+            _isEditingText = true;
+          });
+        },
+        child: Text(
+          initialText!,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18.0,
+          ),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,85 +82,6 @@ class _PlayersScreenState extends State<PlayersScreen> {
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.only(left: 150, top: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Rank:",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 150, top: 8.0),
-                  child: Text(
-                    "Name:",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 150, top: 8.0),
-                  child: Text(
-                    "Nationality:",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 150, top: 8.0),
-                  child: Text(
-                    "Class:",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 150, top: 8.0),
-                  child: Text(
-                    "Age:",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 150, top: 8.0),
-                  child: Text(
-                    "K/D Ratio:",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 150, top: 8.0),
-                  child: Text(
-                    "Plays For:",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
@@ -197,6 +151,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
                 ),
               ),
             ),
+            _editTitleTextField(),
             Opacity(
               opacity: enableSubmit ? 1 : 0.5,
               child: Padding(
